@@ -40,6 +40,33 @@ class ScPlus {
                             defaultValue: '65'
                         }
                     }
+                },
+                {
+                    opcode: 'ShowText',
+                    blockType: Scratch.BlockType.COMMAND,
+                    text: '(Beta)显示 [text] 以字体 [font] , 颜色 [color] 在 [x], [y]',
+                    arguments: {
+                        text: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'Hello World'
+                        },
+                        font: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'bold 30px solid'
+                        },
+                        color: {
+                            type: Scratch.ArgumentType.STRING,
+                            defaultValue: 'white'
+                        },
+                        x: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 240
+                        },
+                        y: {
+                            type: Scratch.ArgumentType.NUMBER,
+                            defaultValue: 180
+                        }
+                    }
                 }
             ]
         };
@@ -52,6 +79,13 @@ class ScPlus {
     };
     GetUnicodeChar(args) {
         return String.fromCharCode(args.number);
+    };
+    ShowText(args) {
+        var doc_id = document.getElementById("canvas");
+        var context = doc_id.getContext("2d");
+        context.font = args.font;
+        context.fillStyle = args.color;
+        context.fillText(args.text, args.x, args.y);
     }
 }
 Scratch.extensions.register(new ScPlus());
